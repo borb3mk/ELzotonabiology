@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STEM Grade 10 • Biology Comprehensive Revision Hub (LO1 & LO2)</title>
+  <!-- Google Fonts: Cairo, JetBrains Mono & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bio: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              900: '#14532d',
+              950: '#052e16',
+            },
+            dark: {
+              800: '#111827',
+              900: '#0b1120',
+              950: '#060913',
+            },
+            accent: {
+              cyan: '#06b6d4',
+              gold: '#f59e0b',
+              purple: '#a855f7',
+              rose: '#f43f5e'
+            }
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            tajawal: ['Tajawal', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Cairo', sans-serif; }
+    html[dir="ltr"] body { font-family: 'Inter', sans-serif; }
+    .term-en { font-family: 'JetBrains Mono', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #060913; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #15803d; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #22c55e; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+      .content-sec { display: block !important; }
+    }
+  </style>
+</head>
+<body class="bg-dark-950 text-slate-100 min-h-screen selection:bg-bio-600 selection:text-white custom-scrollbar">
+
+  <!-- Scroll Progress Indicator -->
+  <div id="readProgress" class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-bio-500 via-accent-cyan to-accent-gold z-50 transform origin-right scale-x-0 transition-transform"></div>
+
+  <!-- Toast Notification -->
+  <div id="toastBox" class="fixed bottom-6 left-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-800 text-white border border-slate-700 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3">
+    <i class="fa-solid fa-circle-check text-bio-500 text-xl"></i>
+    <span id="toastText" class="text-sm font-bold">تم نسخ المحتوى بنجاح!</span>
+  </div>
+
+  <!-- Header Bar -->
+  <header class="sticky top-0 z-40 bg-dark-900/90 backdrop-blur-md border-b border-slate-800 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTab('cell-theory')">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-bio-600 to-accent-cyan flex items-center justify-center shadow-lg shadow-bio-500/20">
+            <i class="fa-solid fa-dna text-white text-2xl"></i>
+          </div>
+          <div>
+            <span class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+              <span class="txt-ar">منصة مراجعة الأحياء</span>
+              <span class="txt-en hidden">STEM Biology Hub</span>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-bio-500/20 text-bio-400 border border-bio-500/30 font-mono">G10 S1</span>
+            </span>
+            <p class="text-xs text-slate-400 font-mono hidden sm:block">LO1 (Epidemiology) &amp; LO2 (Cytology &amp; Microscopy)</p>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="hidden md:flex items-center relative flex-1 max-w-xs mx-4">
+          <i class="fa-solid fa-magnifying-glass absolute right-3 text-slate-400 text-sm"></i>
+          <input type="text" id="liveSearch" onkeyup="searchContent()" placeholder="بحث سريع في المفاهيم..." class="w-full bg-slate-900 text-xs sm:text-sm rounded-xl pr-9 pl-4 py-2 border border-slate-700 focus:outline-none focus:border-bio-500 text-slate-200 placeholder-slate-500">
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="hidden xl:flex items-center gap-1.5 text-xs font-bold">
+          <button onclick="navigateTab('cell-theory')" class="tab-link px-3 py-2 rounded-xl text-bio-400 bg-bio-900/40 border border-bio-600/40 transition flex items-center gap-1.5" data-tab="cell-theory">
+            <i class="fa-solid fa-microscope"></i>
+            <span class="txt-ar">النظرية وحجم الخلية</span>
+            <span class="txt-en hidden">Cell Theory &amp; SA/V</span>
+          </button>
+          <button onclick="navigateTab('diseases')" class="tab-link px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" data-tab="diseases">
+            <i class="fa-solid fa-virus-covid"></i>
+            <span class="txt-ar">الأمراض والوبائيات</span>
+            <span class="txt-en hidden">Diseases &amp; Vitals</span>
+          </button>
+          <button onclick="navigateTab('cases')" class="tab-link px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" data-tab="cases">
+            <i class="fa-solid fa-mosquito"></i>
+            <span class="txt-ar">الملاريا والحالات الطبية</span>
+            <span class="txt-en hidden">Malaria &amp; Clinical Cases</span>
+          </button>
+          <button onclick="navigateTab('cytology')" class="tab-link px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" data-tab="cytology">
+            <i class="fa-solid fa-cubes-stacked"></i>
+            <span class="txt-ar">عضيات الخلية والأغشية</span>
+            <span class="txt-en hidden">Cytology &amp; Organelles</span>
+          </button>
+          <button onclick="navigateTab('microscopy')" class="tab-link px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" data-tab="microscopy">
+            <i class="fa-solid fa-filter"></i>
+            <span class="txt-ar">الميكروسكوبات والمعمل</span>
+            <span class="txt-en hidden">Microscopy &amp; Fractionation</span>
+          </button>
+          <button onclick="navigateTab('quiz')" class="tab-link px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" data-tab="quiz">
+            <i class="fa-solid fa-circle-question text-accent-gold"></i>
+            <span class="txt-ar">الاختبار الشامل</span>
+            <span class="txt-en hidden">15-Q Mock Exam</span>
+          </button>
+        </nav>
+
+        <!-- Controls: Language Toggle & Print -->
+        <div class="flex items-center gap-2">
+          <!-- Language Toggle Button -->
+          <button onclick="toggleLanguage()" class="px-3.5 py-2 rounded-xl bg-bio-950 border border-bio-600/60 hover:bg-bio-900 text-bio-300 font-bold text-xs flex items-center gap-2 transition shadow-md">
+            <i class="fa-solid fa-language text-base text-accent-cyan"></i>
+            <span id="langBtnText">English</span>
+          </button>
+          <button onclick="window.print()" title="Print" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+            <i class="fa-solid fa-print"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative py-10 border-b border-slate-800/80 bg-gradient-to-b from-dark-900 to-dark-950 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      
+      <!-- Attribution Badge (Strictly LTR, No AI mentions) -->
+      <div class="flex items-center justify-center mb-5">
+        <span dir="ltr" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 border border-slate-700 text-xs sm:text-sm font-semibold text-slate-200 shadow-md">
+          <i class="fa-solid fa-circle-check text-bio-500"></i>
+          Information gathered by <strong class="text-white font-bold">Abdelrahman Abdallah</strong>
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-3">
+        <span class="txt-ar">الموسوعة الشاملة لمراجعة أحياء الصف الأول الثانوي (STEM)</span>
+        <span class="txt-en hidden">STEM Grade 10 Biology Comprehensive Revision Hub</span>
+      </h1>
+      <p class="max-w-3xl mx-auto text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 font-tajawal">
+        <span class="txt-ar">تفريغ دقيق وشامل لكافة الفيديوهات والشروحات: النظرية الخلوية، نسبة SA/V، تصنيف الأمراض والعلامات الحيوية، دورة حياة الملاريا، السيتولوجيا العميقة ومسار تصنيع البروتين، الميكروسكوبات وتقنيات الطرد المركزي، مع بنك أسئلة متقدم.</span>
+        <span class="txt-en hidden">Exhaustive revision covering all video lectures: Cell Theory pioneers, SA/V ratio math, Disease Classification &amp; 5 Vital Signs, Malaria complete cycle, In-depth Cytology, Protein Secretion Pathway, Microscopy comparison, and Differential Centrifugation.</span>
+      </p>
+
+      <!-- LO Badges -->
+      <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-mono">
+        <span class="px-3 py-1 rounded-lg bg-bio-950 border border-bio-700/60 text-bio-300">LO1: Pathophysiology &amp; Vital Signs</span>
+        <span class="px-3 py-1 rounded-lg bg-cyan-950 border border-cyan-700/60 text-cyan-300">LO2: Cytology, Organelles &amp; Endomembrane</span>
+        <span class="px-3 py-1 rounded-lg bg-purple-950 border border-purple-700/60 text-purple-300">Lab: LM vs. SEM vs. TEM &amp; Centrifugation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+    <!-- ============================================================== -->
+    <!-- 1. CELL THEORY & SURFACE AREA TO VOLUME RATIO                   -->
+    <!-- ============================================================== -->
+    <section id="sec-cell-theory" class="content-sec space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-bio-400 text-xs font-bold uppercase tracking-wider font-mono">LO2 Cytology Core</span>
+          <h2 class="text-2xl font-black text-white mt-1">
+            <span class="txt-ar">١. النظرية الخلوية، الرواد، وحسابات نسبة (SA/V Ratio)</span>
+            <span class="txt-en hidden">1. Cell Theory Pioneers, Functions &amp; SA/V Ratio</span>
+          </h2>
+        </div>
+        <button onclick="copySection('sec-cell-theory')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300">
+          <i class="fa-solid fa-copy ml-1"></i> <span class="txt-ar">نسخ</span><span class="txt-en hidden">Copy</span>
+        </button>
+      </div>
+
+      <!-- Scientists Cards -->
+      <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+        <h3 class="text-xl font-bold text-bio-400 flex items-center gap-2">
+          <i class="fa-solid fa-timeline"></i>
+          <span class="txt-ar">الخط الزمني لرواد النظرية الخلوية (Historical Pioneers)</span>
+          <span class="txt-en hidden">Historical Pioneers of Cell Theory</span>
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-xs">
+          <!-- Hooke -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+            <span class="text-accent-gold font-bold font-mono">1665</span>
+            <h4 class="font-bold text-white text-sm my-1">Robert Hooke</h4>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">فحص نسيج الفلين الميت (<span class="term-en">Cork</span>) بمجهر بدائي، وشاهد حجيرات مفرغة تشبه غرف الرهبان، وصاغ مصطلح <span class="term-en text-bio-400 font-bold">Cell</span> (وهي في الواقع جدران خلوية ميتة فقط).</span>
+              <span class="txt-en hidden">Examined dead cork tissue using a primitive compound microscope. Observed empty porous compartments and coined the term <strong class="text-bio-400">Cell</strong> (merely viewing dead cellulose cell walls).</span>
+            </p>
+          </div>
+
+          <!-- Leeuwenhoek -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+            <span class="text-accent-gold font-bold font-mono">1674</span>
+            <h4 class="font-bold text-white text-sm my-1">Antonie van Leeuwenhoek</h4>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">صنع مجهراً بسيطاً أحادي العدسة (<span class="term-en">Single-lens</span>) فائق الدقة؛ فحص ماء البرك ورواسب الأسنان، وهو <b>أول من شاهد كائنات حية وحيدة الخلية متحركة</b> وسماها <span class="term-en text-bio-400 font-bold">Animalcules</span>.</span>
+              <span class="txt-en hidden">Crafted a high-magnification single-lens microscope. Examined pond water and dental plaque; <strong>first to witness live moving unicellular microorganisms</strong>, naming them <strong class="text-bio-400">Animalcules</strong>.</span>
+            </p>
+          </div>
+
+          <!-- Schleiden -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+            <span class="text-accent-gold font-bold font-mono">1838</span>
+            <h4 class="font-bold text-white text-sm my-1">Matthias Schleiden</h4>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">عالم نبات ألماني استنتج بعد أبحاث موسعة أن <b>جميع أنسجة النباتات بلا استثناء تتكون من خلايا</b> (<span class="term-en">All plants are made of cells</span>).</span>
+              <span class="txt-en hidden">German botanist who concluded that <strong>all plant tissues are entirely composed of cells</strong>, establishing the cellular foundation of the plant kingdom.</span>
+            </p>
+          </div>
+
+          <!-- Schwann -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+            <span class="text-accent-gold font-bold font-mono">1839</span>
+            <h4 class="font-bold text-white text-sm my-1">Theodor Schwann</h4>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">عالم حيوان ألماني عمم المبدأ على المملكة الحيوانية: <b>جميع الحيوانات تتكون من خلايا</b>، وأن الخلية هي وحدة التركيب الأساسية لكل الكائنات الحية.</span>
+              <span class="txt-en hidden">German zoologist who extended the concept to animal biology: <strong>all animals are composed of cells</strong>, unifying plants and animals under one universal cellular framework.</span>
+            </p>
+          </div>
+
+          <!-- Virchow -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+            <span class="text-accent-gold font-bold font-mono">1855</span>
+            <h4 class="font-bold text-white text-sm my-1">Rudolf Virchow</h4>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">أضاف المبدأ الثالث الجوهري: <b>الخلايا تنشأ فقط من خلايا سابقة عن طريق الانقسام</b> (<span class="term-en text-bio-400 font-bold">Omnis cellula e cellula</span>)، وهو ما يفسر التئام الأنسجة ونمو الأورام.</span>
+              <span class="txt-en hidden">Proposed the 3rd tenet: <strong>all cells arise only from pre-existing cells through division</strong> (<span class="term-en text-bio-400 font-bold">Omnis cellula e cellula</span>), explaining tissue regeneration and cellular pathology.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Tenets -->
+        <div class="bg-slate-950 p-4 rounded-2xl border border-bio-700/40 text-xs sm:text-sm">
+          <p class="font-bold text-bio-400 mb-2">
+            <span class="txt-ar">المبادئ الثلاثة المعتمدة للنظرية الخلوية الحديثة:</span>
+            <span class="txt-en hidden">The Three Core Tenets of Modern Cell Theory:</span>
+          </p>
+          <ol class="list-decimal list-inside space-y-1 text-slate-300">
+            <li>
+              <span class="txt-ar">جميع الكائنات الحية تتكون من خلية واحدة أو أكثر (<span class="term-en">One or more cells</span>).</span>
+              <span class="txt-en hidden">All living organisms are composed of one or more cells.</span>
+            </li>
+            <li>
+              <span class="txt-ar">الخلية هي الوحدة التركيبية والوظيفية الأساسية للحياة (<span class="term-en">Basic structural &amp; functional unit of life</span>).</span>
+              <span class="txt-en hidden">The cell is the basic structural and functional unit of life.</span>
+            </li>
+            <li>
+              <span class="txt-ar">تنشأ جميع الخلايا من خلايا كانت موجودة مسبقاً عبر الانقسام الخلوي (<span class="term-en">Pre-existing cells</span>).</span>
+              <span class="txt-en hidden">All cells arise from pre-existing cells through cellular division.</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- SA / V Ratio & Math -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- SA/V Limitation -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <h3 class="text-xl font-bold text-accent-gold flex items-center gap-2">
+            <i class="fa-solid fa-shapes"></i>
+            <span class="txt-ar">معضلة مساحة السطح إلى الحجم (Surface Area to Volume Ratio)</span>
+            <span class="txt-en hidden">Surface Area to Volume Ratio (SA/V) Dilemma</span>
+          </h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <span class="txt-ar"><b>لماذا لا تستمر الخلية في التضخم والكبر؟</b><br>تعتمد مساحة سطح الغشاء البلازمي على مربع نصف القطر (<span class="term-en">SA $\propto r^2$</span>)، بينما يعتمد الحجم الداخلي على مكعب نصف القطر (<span class="term-en">Volume $\propto r^3$</span>).</span>
+            <span class="txt-en hidden"><strong>Why cannot cells grow indefinitely large?</strong><br>Plasma membrane surface area scales with the square of radius ($SA \propto r^2$), while cytoplasmic volume scales with the cube ($V \propto r^3$). Volume increases exponentially faster than surface area.</span>
+          </p>
+
+          <div class="bg-slate-950 p-4 rounded-xl border border-amber-600/40 text-xs space-y-2">
+            <span class="text-accent-gold font-bold block">
+              <span class="txt-ar">النتائج البيولوجية لانخفاض نسبة (SA / V):</span>
+              <span class="txt-en hidden">Biological Consequences of Low SA/V:</span>
+            </span>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">يصبح الغشاء البلازمي عاجزاً عن استيعاب كميات كافية من الأكسجين والجلوكوز لتغذية الحجم الضخم، وتتراكم الفضلات السامة داخل الخلية؛ مما يجبرها إما على <b>الانقسام</b> لمضاعفة مساحة السطح أو الموت المحتم.</span>
+              <span class="txt-en hidden">The membrane surface becomes insufficient to transport necessary nutrients ($O_2$, glucose) and cannot excrete metabolic wastes quickly enough across long diffusion distances, forcing cell division or apoptosis.</span>
+            </p>
+            <div class="p-2.5 bg-dark-900 rounded-lg border border-slate-800 text-bio-300 font-semibold">
+              <span class="txt-ar">🌱 <b>تكيف الخلية النباتية:</b> تمتلك فجوة عصارية مركزية ضخمة (<span class="term-en">Central Vacuole</span>) تشغل ما يصل إلى 90% من حجم الخلية بالماء، فتحصر السيتوبلازم النشط في شريط دقيق ملاصق للغشاء، متغلبةً على معضلة المسافة!</span>
+              <span class="txt-en hidden">🌱 <strong>Plant Cell Adaptation:</strong> The huge Central Vacuole occupies up to 90% of cell volume with inert sap, pushing the metabolically active cytosol into a thin peripheral rim right under the membrane, maintaining optimal diffusion!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typical Cell Sizes Reference -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <h3 class="text-xl font-bold text-accent-cyan flex items-center gap-2">
+            <i class="fa-solid fa-ruler-combined"></i>
+            <span class="txt-ar">الأبعاد النموذجية للخلايا في الطبيعة (Cell Dimensions)</span>
+            <span class="txt-en hidden">Typical Cell Dimensions &amp; Scales</span>
+          </h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <span class="txt-ar">مقارنة المقاييس الميكرونية والنانوية المقررة:</span>
+            <span class="txt-en hidden">Standard biological size spectrum tested in exams:</span>
+          </p>
+
+          <div class="space-y-2 text-xs">
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+              <div>
+                <b class="text-bio-400 block">Mycoplasma (PPLO)</b>
+                <span class="text-slate-400 txt-ar">أصغر بكتيريا معروفة على الإطلاق وتفتقر للجدار الخلوي.</span>
+                <span class="text-slate-400 txt-en hidden">Smallest known free-living bacterium; lacks a cell wall.</span>
+              </div>
+              <span class="font-mono text-accent-gold font-bold">0.1 - 1.0 µm</span>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+              <div>
+                <b class="text-bio-400 block">Typical Bacteria (E. coli)</b>
+                <span class="text-slate-400 txt-ar">بدائيات نوى نموذجية، أسطوانية أو كروية.</span>
+                <span class="text-slate-400 txt-en hidden">Typical prokaryotic rod or sphere.</span>
+              </div>
+              <span class="font-mono text-accent-cyan font-bold">1 - 5 µm</span>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+              <div>
+                <b class="text-bio-400 block">Human RBC (Erythrocyte)</b>
+                <span class="text-slate-400 txt-ar">قرص مقعر الوجهين لنقل الأكسجين، يفتقر للنواة عند النضج.</span>
+                <span class="text-slate-400 txt-en hidden">Biconcave enucleated disc optimized for capillary transit.</span>
+              </div>
+              <span class="font-mono text-accent-rose font-bold">7 - 8 µm</span>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+              <div>
+                <b class="text-bio-400 block">Typical Plant / Animal Cells</b>
+                <span class="text-slate-400 txt-ar">خلايا حقيقية النواة معقدة الحجرات.</span>
+                <span class="text-slate-400 txt-en hidden">Complex compartmentalized eukaryotic cells.</span>
+              </div>
+              <span class="font-mono text-white font-bold">10 - 100 µm</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 2. DISEASE CLASSIFICATION, VITAL SIGNS & EPIDEMIOLOGY          -->
+    <!-- ============================================================== -->
+    <section id="sec-diseases" class="content-sec hidden space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-accent-cyan text-xs font-bold uppercase tracking-wider font-mono">LO1 Epidemiology &amp; Pathophysiology</span>
+          <h2 class="text-2xl font-black text-white mt-1">
+            <span class="txt-ar">٢. تصنيف الأمراض، العلامات الحيوية الخمس، ومبادئ الوبائيات</span>
+            <span class="txt-en hidden">2. Disease Classification, 5 Vital Signs &amp; Epidemiology</span>
+          </h2>
+        </div>
+        <button onclick="copySection('sec-diseases')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300">
+          <i class="fa-solid fa-copy ml-1"></i> <span class="txt-ar">نسخ</span><span class="txt-en hidden">Copy</span>
+        </button>
+      </div>
+
+      <!-- Infectious vs Non-Infectious Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Infectious -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold text-bio-400">
+              <span class="txt-ar">الأمراض المعدية (Infectious Diseases)</span>
+              <span class="txt-en hidden">Infectious (Communicable) Diseases</span>
+            </h3>
+            <span class="text-xs px-2.5 py-0.5 rounded bg-bio-950 text-bio-300 border border-bio-800 font-mono">Communicable</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <span class="txt-ar">تسببها كائنات دقيقة ممرضة (<span class="term-en">Pathogens</span>): بكتيريا، فيروسات، فطريات، وبروتوزوا. تنتقل بطريقتين:</span>
+            <span class="txt-en hidden">Caused by biological pathogens (bacteria, viruses, fungi, protozoa, helminths). Classified by route of transmission:</span>
+          </p>
+
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-2">
+            <p>• <b><span class="txt-ar">أفقي</span><span class="txt-en hidden">Horizontal Transmission</span>:</b> 
+              <span class="txt-ar">بين أفراد المجتمع عبر الرذاذ، الهواء، اللمس، الطعام الملوث، أو النواقل الحشرية.</span>
+              <span class="txt-en hidden">Spread between peers via aerosols, physical touch, fomites, contaminated food/water, or insect vectors.</span>
+            </p>
+            <p>• <b><span class="txt-ar">رأسي</span><span class="txt-en hidden">Vertical Transmission</span>:</b> 
+              <span class="txt-ar">من الأم الحامل إلى الجنين عبر المشيمة أو أثناء الولادة الطبيعية والرضاعة.</span>
+              <span class="txt-en hidden">Direct transfer from mother to child via placenta in utero, during childbirth, or through lactation.</span>
+            </p>
+            <p>• <b><span class="txt-ar">حادة (Acute)</span><span class="txt-en hidden">Acute Course</span>:</b> 
+              <span class="txt-ar">بداية سريعة وأعراض شديدة لمدى قصير (مثل الإنفلونزا).</span>
+              <span class="txt-en hidden">Rapid onset and short duration (e.g., Common Cold, Influenza).</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Non-Infectious -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold text-accent-rose">
+              <span class="txt-ar">الأمراض غير المعدية (Non-Infectious Diseases)</span>
+              <span class="txt-en hidden">Non-Communicable Diseases (NCDs)</span>
+            </h3>
+            <span class="text-xs px-2.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 font-mono">Chronic / Lifestyle</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <span class="txt-ar">لا تنتقل بين البشر بواسطة كائن ممرض، بل تنشأ بالقاعدة الذهبية لشرح الفيديوهات: <b>"منحرف بس عايز اللي يوجهني"</b>.</span>
+            <span class="txt-en hidden">Not transmitted via microbes. Develop through complex interplay between genetics and lifestyle:</span>
+          </p>
+
+          <div class="bg-slate-950 p-4 rounded-xl border border-rose-900/40 text-xs space-y-2">
+            <span class="text-accent-rose font-bold block font-mono">Genetic Susceptibility + Environmental Trigger</span>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">استعداد وراثي جيني موروث يتفاعل مع محفز بيئي أو نمط معيشي سلبي (تدخين، ضغط عصبي، سمنة، تغذية سيئة).</span>
+              <span class="txt-en hidden">Inherited genetic vulnerability triggered by chronic environmental stress, tobacco smoking, physical inactivity, or poor diet.</span>
+            </p>
+            <p class="text-slate-400">
+              <span class="txt-ar"><b>أمثلة:</b> ارتفاع ضغط الدم، السكري، أمراض شرايين القلب التاجية (<span class="term-en">CHD / IHD</span>)، والانسداد الرئوي المزمن (<span class="term-en">COPD</span>).</span>
+              <span class="txt-en hidden"><strong>Examples:</strong> Hypertension, Type 2 Diabetes, Coronary Heart Disease (CHD), and Chronic Obstructive Pulmonary Disease (COPD).</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Signs vs Symptoms & 5 Vital Signs Table -->
+      <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <h3 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-stethoscope text-accent-cyan"></i>
+            <span class="txt-ar">العلامات والأعراض والعلامات الحيوية الخمس (Signs, Symptoms &amp; Vital Signs)</span>
+            <span class="txt-en hidden">Signs, Symptoms &amp; The Five Vital Signs</span>
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <b class="text-accent-cyan text-sm block mb-1">
+              <span class="txt-ar">العلامات (Signs) - موضوعية وقابلة للقياس</span>
+              <span class="txt-en hidden">Signs - Objective &amp; Measurable</span>
+            </b>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">ملاحظات وقياسات مادية يكتشفها الطبيب بالأجهزة والفحص المباشر (<span class="term-en">Objective</span>): طفح جلدي، تزييق الصدر بالسماعة (<span class="term-en">Wheezing</span>)، ارتفاع درجة الحرارة بالميزان، وارتفاع ضغط الدم.</span>
+              <span class="txt-en hidden">Observable, quantifiable phenomena detected directly by medical instruments or inspection: skin erythema/rash, lung wheezing via stethoscope, fever reading, elevated BP.</span>
+            </p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <b class="text-accent-gold text-sm block mb-1">
+              <span class="txt-ar">الأعراض (Symptoms) - ذاتية يشعر بها المريض</span>
+              <span class="txt-en hidden">Symptoms - Subjective Sensations</span>
+            </b>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">شكوى حسية يصفها المريض ولا يمكن قياسها معملياً بجهاز (<span class="term-en">Subjective</span>): الصداع، الغثيان، آلام الجيوب الأنفية، الدوخة، الإرهاق، وفقدان حاسة التذوق والشم.</span>
+              <span class="txt-en hidden">Subjective internal experiences communicated exclusively by the patient: headache severity, nausea, malaise, fatigue, phantom sensations, loss of taste/smell.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Table of 5 Vitals -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs border-collapse bg-slate-950 rounded-2xl overflow-hidden border border-slate-800">
+            <thead class="bg-slate-800 text-slate-200 font-mono">
+              <tr>
+                <th class="p-3">Vital Sign</th>
+                <th class="p-3">Normal Standard</th>
+                <th class="p-3 text-accent-cyan">Low Abnormality</th>
+                <th class="p-3 text-accent-rose">High Abnormality</th>
+                <th class="p-3">Clinical Significance</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 font-mono">
+              <tr>
+                <td class="p-3 font-bold text-white">Heart Rate (HR)</td>
+                <td class="p-3 text-bio-400">60 - 100 bpm</td>
+                <td class="p-3 text-accent-cyan">Bradycardia (&lt;60)</td>
+                <td class="p-3 text-accent-rose">Tachycardia (&gt;100)</td>
+                <td class="p-3 text-slate-300 font-cairo txt-ar">معدل انقباض القلب في الدقيقة</td>
+                <td class="p-3 text-slate-300 font-inter txt-en hidden">Beats per minute at rest</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">Blood Pressure (BP)</td>
+                <td class="p-3 text-bio-400">120 / 80 mmHg</td>
+                <td class="p-3 text-accent-cyan">Hypotension (&lt;90/60)</td>
+                <td class="p-3 text-accent-rose">Hypertension (&gt;130/90)</td>
+                <td class="p-3 text-slate-300 font-cairo txt-ar">الضغط الانقباضي والانبساطي للشرايين</td>
+                <td class="p-3 text-slate-300 font-inter txt-en hidden">Systolic over Diastolic vascular pressure</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">Respiratory Rate (RR)</td>
+                <td class="p-3 text-bio-400">10 - 20 breaths/min</td>
+                <td class="p-3 text-accent-cyan">Hypoventilation (&lt;10)</td>
+                <td class="p-3 text-accent-rose">Hyperventilation (&gt;20)</td>
+                <td class="p-3 text-slate-300 font-cairo txt-ar">دورات التنفس المحسوبة في الدقيقة</td>
+                <td class="p-3 text-slate-300 font-inter txt-en hidden">Inspirations/Expirations per min</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">Oxygen Saturation ($SpO_2$)</td>
+                <td class="p-3 text-bio-400">95% - 100%</td>
+                <td class="p-3 text-accent-rose font-bold">Hypoxemia (&lt;95%)</td>
+                <td class="p-3 text-slate-400">Normal up to 100%</td>
+                <td class="p-3 text-slate-300 font-cairo txt-ar">نسبة تشبع الهيموجلوبين بالأكسجين</td>
+                <td class="p-3 text-slate-300 font-inter txt-en hidden">Percentage of oxyhemoglobin by pulse oximeter</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">Body Temperature</td>
+                <td class="p-3 text-bio-400">36.5°C - 37.5°C</td>
+                <td class="p-3 text-accent-cyan">Hypothermia (&lt;36°C)</td>
+                <td class="p-3 text-accent-rose">Febrile / Fever (&gt;38°C)</td>
+                <td class="p-3 text-slate-300 font-cairo txt-ar">حرارة الجسم الداخلية المنظمة بالهايبوثلاموس</td>
+                <td class="p-3 text-slate-300 font-inter txt-en hidden">Hypothalamic-regulated core body temperature</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Eradication vs Elimination & Triad -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+        
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-3">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-earth-africa text-accent-cyan"></i>
+            <span class="txt-ar">الاستئصال العالمي مقابل الإقصاء المحلي (Eradication vs. Elimination)</span>
+            <span class="txt-en hidden">Eradication vs. Elimination</span>
+          </h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <span class="txt-ar">• <b>الإقصاء (<span class="term-en">Elimination</span>):</b> خفض معدل حدوث المرض في رقعة جغرافية محددة إلى الصفر مع <b>وجوب استمرار إجراءات المكافحة واليقظة</b> (مثل إعلان مصر خالية من الملاريا).<br>• <b>الاستئصال (<span class="term-en">Eradication</span>):</b> القضاء الدائم والعالمي على المرض من كوكب الأرض بأكمله، بحيث تتوقف جهود المكافحة تماماً (تم فقط مع مرض <span class="term-en text-bio-400 font-bold">Smallpox</span> الجدري عام 1980).</span>
+            <span class="txt-en hidden">• <strong>Elimination:</strong> Reducing incidence to zero in a specific geographic region; continuous intervention and surveillance remain mandatory (e.g., Malaria elimination in Egypt).<br>• <strong>Eradication:</strong> Permanent worldwide reduction to zero cases; containment interventions can safely terminate globally (achieved solely for <strong>Smallpox</strong> in 1980).</span>
+          </p>
+
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
+            <span class="text-accent-gold font-bold block">
+              <span class="txt-ar">شروط استئصال أي مرض (Requirements for Eradication):</span>
+              <span class="txt-en hidden">Requirements for Disease Eradication:</span>
+            </span>
+            <p>1. <span class="txt-ar">كائن معدٍ معروف ومحدد.</span><span class="txt-en hidden">Infectious pathogen with distinct lifecycle.</span></p>
+            <p>2. <span class="txt-ar">عائل ضيق محصور في الإنسان فقط دون مستودع حيواني (<span class="term-en">Narrow host range / No animal reservoir</span>).</span><span class="txt-en hidden">Strictly human host without animal reservoir.</span></p>
+            <p>3. <span class="txt-ar">توفر لقاح فعال وغير مكلف يوفر مناعة طويلة الأمد.</span><span class="txt-en hidden">Highly effective, cost-efficient, durable vaccine.</span></p>
+            <p>4. <span class="txt-ar">سهولة التشخيص السريري وغياب الحالات الكامنة غير المرئية.</span><span class="txt-en hidden">Easily recognized clinical signs without covert latency.</span></p>
+          </div>
+        </div>
+
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-3">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-triangle-circle-square text-accent-gold"></i>
+            <span class="txt-ar">الثالوث الوبائي والنواقل (Triad &amp; Vectors)</span>
+            <span class="txt-en hidden">Epidemiological Triad &amp; Vectors</span>
+          </h3>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-2">
+            <p><b><span class="txt-ar">الثالوث الوبائي</span><span class="txt-en hidden">Epidemiological Triad</span>:</b>
+              <br><span class="term-en text-bio-400 font-bold">Agent (المسبب) + Host (العائل) + Environment (البيئة)</span>
+            </p>
+            <p class="text-slate-300">
+              <span class="txt-ar"><b>النواقل البيولوجية مقابل الميكانيكية:</b><br>• <b>ناقل بيولوجي (<span class="term-en">Biological Vector</span>):</b> يتكاثر أو ينضج الميكروب داخله كجزء إجباري من دورة حياته (أنثى بعوضة الأنوفيلس للملاريا).<br>• <b>ناقل ميكانيكي (<span class="term-en">Mechanical Vector</span>):</b> مجرد وسيلة نقل فيزيائية دون أي نمو للميكروب (أرجل الذباب والصراصير).</span>
+              <span class="txt-en hidden"><strong>Biological vs. Mechanical Vectors:</strong><br>• <strong>Biological:</strong> Pathogen undergoes multiplication or developmental transformation inside vector tissues (e.g., <em>Anopheles</em> mosquito in Malaria).<br>• <strong>Mechanical:</strong> Passive physical transport of pathogen without biological development (e.g., housefly legs carrying pathogens to food).</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 3. CLINICAL CASE STUDIES: MALARIA, SCD, TB, TAY-SACHS          -->
+    <!-- ============================================================== -->
+    <section id="sec-cases" class="content-sec hidden space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-accent-rose text-xs font-bold uppercase tracking-wider font-mono">Detailed Case Studies</span>
+          <h2 class="text-2xl font-black text-white mt-1">
+            <span class="txt-ar">٣. دراسات الحالات الطبية: الملاريا، الأنيميا المنجلية، السل، وتاي ساكس</span>
+            <span class="txt-en hidden">3. Clinical Cases: Malaria, Sickle Cell, TB &amp; Tay-Sachs</span>
+          </h2>
+        </div>
+        <button onclick="copySection('sec-cases')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300">
+          <i class="fa-solid fa-copy ml-1"></i> <span class="txt-ar">نسخ</span><span class="txt-en hidden">Copy</span>
+        </button>
+      </div>
+
+      <!-- MALARIA MASTER CASE -->
+      <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <h3 class="text-xl font-bold text-accent-rose flex items-center gap-2">
+            <i class="fa-solid fa-mosquito"></i>
+            <span class="txt-ar">الملاريا ودورة حياة البلازموديوم (Malaria &amp; Plasmodium)</span>
+            <span class="txt-en hidden">Malaria Pathogenesis &amp; Plasmodium Life Cycle</span>
+          </h3>
+          <span class="text-xs bg-rose-950 text-rose-300 px-3 py-1 rounded-full border border-rose-800 font-mono font-bold">Apicomplexan Protozoan</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <span class="text-accent-rose font-bold block mb-1">
+              <span class="txt-ar">أنواع البلازموديوم الأربعة:</span>
+              <span class="txt-en hidden">Four Human Plasmodium Species:</span>
+            </span>
+            <p class="text-slate-300 leading-relaxed">
+              • <b class="text-white">P. falciparum:</b> <span class="txt-ar">الأخطر مسبباً الملاريا الخبيثة (<span class="term-en">Malignant tertian</span>)، وانسداد شعيرات المخ.</span><span class="txt-en hidden">Most lethal; causes malignant tertian malaria &amp; cerebral microvascular occlusion.</span><br>
+              • <b class="text-white">P. vivax &amp; P. ovale:</b> <span class="txt-ar">الملاريا الحميدة (<span class="term-en">Benign tertian</span> كل 48 ساعة).</span><span class="txt-en hidden">Benign tertian malaria with 48h fever spikes.</span><br>
+              • <b class="text-white">P. malariae:</b> <span class="txt-ar">ملاريا الربع (<span class="term-en">Quartan</span> كل 72 ساعة).</span><span class="txt-en hidden">Quartan malaria with 72h cycles.</span>
+            </p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <span class="text-accent-cyan font-bold block mb-1">
+              <span class="txt-ar">تحديد العائل (Hosts Definition):</span>
+              <span class="txt-en hidden">Host Classifications:</span>
+            </span>
+            <p class="text-slate-300 leading-relaxed">
+              • <b><span class="txt-ar">العائل النهائي</span><span class="txt-en hidden">Definitive Host</span>:</b> <span class="txt-ar">أنثى بعوضة الأنوفيلس (<span class="term-en">Female Anopheles</span>) لأن الإخصاب والتكاثر الجنسي يتم بمعدتها.</span><span class="txt-en hidden">Female <em>Anopheles</em> mosquito because sexual reproduction (syngamy) occurs in its gut.</span><br>
+              • <b><span class="txt-ar">العائل الوسيط</span><span class="txt-en hidden">Intermediate Host</span>:</b> <span class="txt-ar">الإنسان، حيث يقتصر التكاثر فيه على الانقسام اللاجنسي بالتقطع (<span class="term-en">Schizogony</span>).</span><span class="txt-en hidden">Human, supporting strictly asexual replication (schizogony).</span>
+            </p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <span class="text-accent-gold font-bold block mb-1">
+              <span class="txt-ar">الطور الكامن والانتكاسة (Hypnozoites):</span>
+              <span class="txt-en hidden">Dormant Hypnozoite &amp; Relapses:</span>
+            </span>
+            <p class="text-slate-300 leading-relaxed">
+              <span class="txt-ar">في نوعي (<span class="term-en">vivax &amp; ovale</span>)، يكمن الطفيلي في خلايا الكبد بطور نائم يسمى <span class="term-en text-accent-gold font-bold">Hypnozoite</span>، مسبباً انتكاسات مرضية (<span class="term-en">Relapses</span>) بعد شهور أو سنوات دون لسعة جديدة.</span>
+              <span class="txt-en hidden">In <em>P. vivax</em> and <em>P. ovale</em>, dormant intra-hepatic stages called <strong class="text-accent-gold">Hypnozoites</strong> hibernate in hepatocytes, awakening months/years later to cause true clinical relapses without re-infection.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Life Cycle Sequence -->
+        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-3 text-xs">
+          <h4 class="font-bold text-white text-sm">
+            <span class="txt-ar">مراحل دورة حياة البلازموديوم بالتتابع الزمني الدقيق:</span>
+            <span class="txt-en hidden">Chronological Steps of the Plasmodium Life Cycle:</span>
+          </h4>
+          <ol class="list-decimal list-inside space-y-2 text-slate-300 leading-relaxed">
+            <li>
+              <b><span class="txt-ar">اللسع وحقن الطور المعدي:</span><span class="txt-en hidden">Inoculation of Sporozoites:</span></b> 
+              <span class="txt-ar">تلسع أنثى الأنوفيلس جلد الإنسان ليلاً لتتغذى على الدم لإنضاج بيضها، فتحقن أشكالاً مغزلية أحادية (<span class="term-en text-bio-400 font-bold">Sporozoites n</span>) مع لعابها المانع للتجلط.</span>
+              <span class="txt-en hidden">Female mosquito feeds at night (needing blood protein for eggs), injecting motile, spindle-shaped haploid <strong class="text-bio-400">Sporozoites (n)</strong> along with anticoagulant saliva.</span>
+            </li>
+            <li>
+              <b><span class="txt-ar">المرحلة الكبدية (<span class="term-en">Exo-erythrocytic Schizogony</span>):</span><span class="txt-en hidden">Hepatic Schizogony:</span></b> 
+              <span class="txt-ar">تهاجر الأسبوروزويتات في مجرى الدم لخلايا الكبد، وتتكاثر لاجنسياً لتكون أكياس شيزونت (<span class="term-en">Schizont</span>) تنفجر محررة آلاف الميروزويتات (<span class="term-en text-accent-cyan font-bold">Merozoites n</span>).</span>
+              <span class="txt-en hidden">Sporozoites invade hepatocytes within 30 minutes, undergoing massive asexual schizogony to form liver schizonts that burst, releasing thousands of <strong class="text-accent-cyan">Merozoites (n)</strong>.</span>
+            </li>
+            <li>
+              <b><span class="txt-ar">المرحلة الدموية (<span class="term-en">Erythrocytic Cycle</span>):</span><span class="txt-en hidden">Erythrocytic Cycle:</span></b> 
+              <span class="txt-ar">تخترق الميروزويتات خلايا الدم الحمراء (RBCs) وتتحول إلى: (١) الطور الحلقي التشخيصي (<span class="term-en text-accent-gold font-bold">Ring stage / Immature trophozoite</span>)، ثم (٢) الطور المتغذي الناضج (<span class="term-en">Mature trophozoite</span>)، ثم (٣) شيزونت دموي ينفجر مدمراً الخلية الحمراء.</span>
+              <span class="txt-en hidden">Merozoites invade RBCs, transforming into: (1) Key diagnostic <strong class="text-accent-gold">Ring Stage (Immature trophozoite)</strong>, (2) Amorphous mature trophozoite feeding on hemoglobin, (3) Erythrocytic schizont.</span>
+            </li>
+            <li>
+              <b><span class="txt-ar">نوبة الملاريا الثلاثية (<span class="term-en">Malarial Paroxysm</span>):</span><span class="txt-en hidden">Malarial Paroxysm &amp; Pathology:</span></b> 
+              <span class="txt-ar">انفجار ملايين الـ RBCs بالتزامن يحرر سموم الهيموزوين وميروزويتات جديدة، مسبباً النوبة الثلاثية (رعشة برودة عنيفة، حمى شديدة، وعرق غزير) مصحوبة بأنيميا انحلالية (<span class="term-en">Hemolytic Anemia</span>)، يرقان الصفراء (<span class="term-en">Jaundice</span>) وتضخم الكبد والطحال (<span class="term-en">Hepatosplenomegaly</span>).</span>
+              <span class="txt-en hidden">Synchronized lysis of millions of erythrocytes releases hemozoin toxins, triggering: Violent Chills -> High Fever -> Profuse Sweating. Leads to Hemolytic Anemia, Jaundice (bilirubin surge), and Hepatosplenomegaly.</span>
+            </li>
+            <li>
+              <b><span class="txt-ar">الدورة الجنسية بالبعوضة (<span class="term-en">Sporogony</span>):</span><span class="txt-en hidden">Sporogonic Cycle in Mosquito:</span></b> 
+              <span class="txt-ar">تتحول بعض الميروزويتات إلى خلايا مشيجية (<span class="term-en">Gametocytes</span>) تمتصها البعوضة. تندمج بمعدتها مكونة زيجوت ثنائي (<span class="term-en">Zygote 2n</span>) يستطيل ليتحرك (<span class="term-en">Ookinete</span>) مخترقاً جدار المعدة مكوناً كيس البيض (<span class="term-en">Oocyst</span>). ينقسم ميوزياً ثم يفرخ أسبوروزويتات تهاجر للغدد اللعابية.</span>
+              <span class="txt-en hidden">Some merozoites differentiate into Gametocytes. Ingested by mosquito, they fuse into a diploid Zygote (2n), developing into motile Ookinete, penetrating gut wall into Oocyst. Meiosis &amp; sporogony produce sporozoites migrating to salivary glands.</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- SCD, TB & TAY-SACHS -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+        
+        <!-- SCD -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+          <span class="text-accent-gold font-bold font-mono">Autosomal Recessive</span>
+          <h4 class="text-base font-bold text-white">
+            <span class="txt-ar">الأنيميا المنجلية (Sickle Cell Disease)</span>
+            <span class="txt-en hidden">Sickle Cell Disease (SCD)</span>
+          </h4>
+          <p class="text-slate-300 leading-relaxed">
+            <span class="txt-ar">طفرة جينية نقطية تؤدي لاستبدال حمض الجلوتاميك بالفالين، مكونة هيموجلوبين <span class="term-en text-accent-gold font-bold">HbS</span>. عند نقص الأكسجين يتبلمر الهيموجلوبين فتتحول خلايا الدم من أقراص مرنة إلى أهلة منجلية صلبة هشة.</span>
+            <span class="txt-en hidden">Point mutation substituting valine for glutamic acid, forming mutated <strong class="text-accent-gold">HbS</strong>. Under deoxygenation, HbS polymerizes into rigid fibers, deforming erythrocytes into sickle crescents.</span>
+          </p>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1 text-slate-400">
+            <p>• <span class="txt-ar"><b>المضاعفات:</b> نوبات انسداد الأوعية الدموية (<span class="term-en">Vaso-occlusion</span>)، آلام مبرحة، فقر دم انحلالي، وقصور تنفسي.</span><span class="txt-en hidden"><strong>Pathology:</strong> Vaso-occlusive crises, microvascular ischemia, severe bone pain, hemolytic anemia, and splenic infarction.</span></p>
+            <p class="text-bio-300 font-semibold">• <span class="txt-ar"><b>الميزة التطورية:</b> أصحاب الصفة الهجين (<span class="term-en">HbAS</span>) يتمتعون بمقاومة طبيعية للملاريا الخبيثة!</span><span class="txt-en hidden"><strong>Heterozygote Advantage:</strong> HbAS carriers are naturally protected against severe <em>P. falciparum</em> malaria!</span></p>
+          </div>
+        </div>
+
+        <!-- TB -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+          <span class="text-accent-cyan font-bold font-mono">Acid-Fast Bacillus</span>
+          <h4 class="text-base font-bold text-white">
+            <span class="txt-ar">السل الدرني (Tuberculosis - TB)</span>
+            <span class="txt-en hidden">Tuberculosis (TB)</span>
+          </h4>
+          <p class="text-slate-300 leading-relaxed">
+            <span class="txt-ar">تسببه بكتيريا <span class="term-en text-accent-cyan font-bold">Mycobacterium tuberculosis</span> المنقولة برذاذ الهواء. تبتلعها الخلايا الأكولة (<span class="term-en">Macrophages</span>) لكن جدارها الشمعي المقاوم لحمض المايكوليك يمنع هضمها.</span>
+            <span class="txt-en hidden">Caused by airborne <em>Mycobacterium tuberculosis</em>. Alveolar macrophages phagocytose bacilli but cannot digest their waxy, mycolic-acid-rich cell walls.</span>
+          </p>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1 text-slate-400">
+            <p>• <span class="txt-ar"><b>السل الكامن (<span class="term-en">Latent TB</span>):</b> تحاصر المناعة البكتيريا داخل ورم حبيبي (<span class="term-en">Granuloma / Tubercle</span>) دون أعراض أو عدوى.</span><span class="txt-en hidden"><strong>Latent TB:</strong> Immune cells wall off bacteria within calcified lung granulomas (tubercles); asymptomatic and non-contagious.</span></p>
+            <p>• <span class="txt-ar"><b>السل النشط (<span class="term-en">Active TB</span>):</b> تنشط البكتيريا عند ضعف المناعة (الإيدز، السرطان)، مسببة كحة مدممة (<span class="term-en">Hemoptysis</span>)، عرقاً ليلياً، وفقدان وزن حاد.</span><span class="txt-en hidden"><strong>Active TB:</strong> Reactivation under immune suppression (HIV, chemotherapy): chronic cough, hemoptysis, night sweats, cachexia, and lung cavitation.</span></p>
+          </div>
+        </div>
+
+        <!-- Tay-Sachs -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+          <span class="text-accent-rose font-bold font-mono">Lysosomal Storage Disorder</span>
+          <h4 class="text-base font-bold text-white">
+            <span class="txt-ar">داء تاي ساكس (Tay-Sachs Disease)</span>
+            <span class="txt-en hidden">Tay-Sachs Disease</span>
+          </h4>
+          <p class="text-slate-300 leading-relaxed">
+            <span class="txt-ar">مرض متنحٍ ناتج عن غياب إنزيم الليزوزومات <span class="term-en text-accent-rose font-bold">Beta-hexosaminidase A</span>، مما يعطل تكسير دهون <span class="term-en text-white font-bold">GM2 Gangliosides</span> فتتراكم سامة داخل الخلايا العصبية.</span>
+            <span class="txt-en hidden">Autosomal recessive mutation causing deficiency of lysosomal enzyme <strong class="text-accent-rose">Beta-hexosaminidase A</strong>. Neurons cannot hydrolyze complex <strong class="text-white">GM2 Gangliosides</strong>.</span>
+          </p>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1 text-slate-400">
+            <p>• <span class="txt-ar"><b>المآل الإكلينيكي:</b> انتفاخ وتدمير خلايا المخ، بقعة حمراء كرزية بشبكية العين (<span class="term-en">Cherry-red spot</span>)، عمى، تراجع حركي، والوفاة المبكرة في الطفولة.</span><span class="txt-en hidden"><strong>Clinical Course:</strong> Progressive neurodegeneration, hallmark cherry-red macular spot, blindness, seizures, loss of motor milestones, fatal by age 4.</span></p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 4. CYTOLOGY & ENDOMEMBRANE SYSTEM (IN-DEPTH)                   -->
+    <!-- ============================================================== -->
+    <section id="sec-cytology" class="content-sec hidden space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-bio-400 text-xs font-bold uppercase tracking-wider font-mono">LO2 Organelle Ultrastructure</span>
+          <h2 class="text-2xl font-black text-white mt-1">
+            <span class="txt-ar">٤. السيتولوجيا العميقة: مقارنة النواة، العضيات، ونظام الأغشية الداخلية</span>
+            <span class="txt-en hidden">4. In-depth Cytology: Organelles &amp; Endomembrane System</span>
+          </h2>
+        </div>
+        <button onclick="copySection('sec-cytology')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300">
+          <i class="fa-solid fa-copy ml-1"></i> <span class="txt-ar">نسخ</span><span class="txt-en hidden">Copy</span>
+        </button>
+      </div>
+
+      <!-- Prokaryotes vs Eukaryotes Table -->
+      <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-code-compare text-bio-400"></i>
+          <span class="txt-ar">المقارنة المعيارية الشاملة: بدائيات النوى مقابل حقيقيات النوى</span>
+          <span class="txt-en hidden">Master Comparison: Prokaryotes vs. Eukaryotes</span>
+        </h3>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs border-collapse bg-slate-950 rounded-2xl overflow-hidden border border-slate-800">
+            <thead class="bg-slate-800 text-slate-200">
+              <tr>
+                <th class="p-3 font-bold">Feature</th>
+                <th class="p-3 text-bio-400 font-bold">بدائيات النوى (Prokaryotes)</th>
+                <th class="p-3 text-accent-cyan font-bold">حقيقيات النوى (Eukaryotes)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr>
+                <td class="p-3 font-bold text-white">المادة الوراثية (DNA)</td>
+                <td class="p-3 text-slate-300">
+                  <span class="txt-ar">جزيء DNA حلقي مفرد عارٍ في منطقة النيوكليويد (<span class="term-en">Nucleoid</span>) بلا غشاء نووي وبلا بروتينات هستون، بالإضافة لبلازميدات مستقلة.</span>
+                  <span class="txt-en hidden">Single circular DNA in nucleoid; not bound to histones; contains accessory autonomous Plasmids.</span>
+                </td>
+                <td class="p-3 text-slate-300">
+                  <span class="txt-ar">كروموسومات خطية متعددة داخل نواة حقيقية محاطة بغشاء مزدوج مثقب، وملفوفة حول هستونات (كروماتين نشط Euchromatin وغير نشط Heterochromatin).</span>
+                  <span class="txt-en hidden">Multiple linear chromosomes enveloped in a double perforated membrane, tightly coiled on histones as Euchromatin and Heterochromatin.</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">معامل ترسيب الريبوسوم</td>
+                <td class="p-3 font-mono text-bio-400 font-bold">70S (50S large + 30S small subunit)</td>
+                <td class="p-3 font-mono text-accent-cyan font-bold">80S بالسيتوسول (60S + 40S)، و 70S داخل الميتوكوندريا والكلوروبلاست</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">العضيات الغشائية</td>
+                <td class="p-3 text-rose-400 font-bold">
+                  <span class="txt-ar">تغيب تماماً (لا ميتوكوندريا، لا شبكة إندوبلازمية، لا جهاز جولجي).</span>
+                  <span class="txt-en hidden">Completely absent (no mitochondria, ER, Golgi, or lysosomes).</span>
+                </td>
+                <td class="p-3 text-bio-400 font-bold">
+                  <span class="txt-ar">موجودة ومتنوعة تقسم الخلية إلى حجرات متخصصة وظيفياً.</span>
+                  <span class="txt-en hidden">Abundant single- and double-membrane compartmentalized organelles.</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">تركيب الجدار الخلوي</td>
+                <td class="p-3 text-slate-300">
+                  <span class="txt-ar">ببتيدوجلايكان / ميورين (<span class="term-en">Peptidoglycan</span>) في معظم البكتيريا.</span>
+                  <span class="txt-en hidden">Peptidoglycan (murein) matrix in true eubacteria.</span>
+                </td>
+                <td class="p-3 text-slate-300">
+                  <span class="txt-ar">سيليلوز في النباتات، كايتين في الفطريات، وغائب تماماً في الخلايا الحيوانية.</span>
+                  <span class="txt-en hidden">Cellulose in plants, Chitin in fungi, completely absent in animals.</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Double vs Single Membrane Details -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+        
+        <!-- Double Membrane (Endosymbionts) -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+          <span class="text-accent-gold font-bold font-mono">Double Membrane (Endosymbionts)</span>
+          <h4 class="text-base font-bold text-white">
+            <span class="txt-ar">عضيات ذات غشاء مزدوج</span>
+            <span class="txt-en hidden">Double-Membrane Organelles</span>
+          </h4>
+          <p class="text-slate-300 leading-relaxed">
+            <span class="txt-ar">تحتوي جميعها على <b>DNA حلقي خاص وريبوسومات 70S</b> تدعيماً لنظرية التكافل الداخلي (<span class="term-en">Endosymbiosis</span>):</span>
+            <span class="txt-en hidden">Possess their own <strong>circular DNA and 70S ribosomes</strong>, replicating autonomously (Endosymbiotic Theory):</span>
+          </p>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
+            <p>• <b><span class="txt-ar">الميتوكوندريا</span><span class="txt-en hidden">Mitochondria</span>:</b> 
+              <span class="txt-ar">مصنع الـ ATP. غشاؤها الداخلي منطوٍ في صورة أعراف (<span class="term-en">Cristae</span>) لزيادة مساحة سلسلة نقل الإلكترون. سموم تثبيط التنفس: السيانيد، أول أكسيد الكربون، وحبوب الغلة (فوسفيد الألومنيوم).</span>
+              <span class="txt-en hidden">Powerhouse of ATP. Inner membrane folds into cristae to maximize surface area for ETC complexes. Respiratory toxins: Cyanide, CO, Aluminum Phosphide.</span>
+            </p>
+            <p>• <b><span class="txt-ar">البلاستيدات الخضراء</span><span class="txt-en hidden">Chloroplasts</span>:</b> 
+              <span class="txt-ar">أقراص الثايلاكويد المتراصة في حبيبات جرانا (<span class="term-en">Grana</span>) محاطة بستروما للبناء الضوئي. وأنواعها الأخرى: ملونة (<span class="term-en">Chromoplasts</span>) وبيضاء نشوية (<span class="term-en">Leucoplasts</span>).</span>
+              <span class="txt-en hidden">Thylakoid discs stacked into Grana surrounded by stroma for photosynthesis. Other plastids: Chromoplasts (carotenoids) &amp; Leucoplasts (starch).</span>
+            </p>
+            <p>• <b><span class="txt-ar">النواة</span><span class="txt-en hidden">Nucleus</span>:</b> 
+              <span class="txt-ar">غلاف نووي مزدوج مثقب، وبداخلها النوية (<span class="term-en">Nucleolus</span>) مقر تصنيع وتجميع وحدات الريبوسوم.</span>
+              <span class="txt-en hidden">Perforated nuclear envelope; contains Nucleolus (rRNA transcription &amp; ribosomal subunit assembly).</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Single Membrane (Endomembrane System) -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+          <span class="text-accent-cyan font-bold font-mono">Single-Membrane Network</span>
+          <h4 class="text-base font-bold text-white">
+            <span class="txt-ar">شبكة الأغشية الأحادية</span>
+            <span class="txt-en hidden">Single-Membrane Endomembrane</span>
+          </h4>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2 text-slate-300">
+            <p>• <b>Rough ER:</b> <span class="txt-ar">مكسوة بالريبوسومات؛ تصنع بروتينات الإفراز، إنزيمات الليزوزومات، والبروتينات الغشائية.</span><span class="txt-en hidden">Studded with 80S ribosomes; synthesizes secretory proteins, lysosomal enzymes, and membrane lipids.</span></p>
+            <p>• <b>Smooth ER:</b> <span class="txt-ar">تصنيع الدهون والهرمونات الاستيرويدية، إزالة سموم الأدوية في الكبد، تكسير الجليكوجين، وتخزين الكالسيوم بالعضلات.</span><span class="txt-en hidden">Lipid/steroid synthesis, hepatic drug detoxification, glycogenolysis, and sarcoplasmic calcium storage.</span></p>
+            <p>• <b>جهاز جولجي:</b> <span class="txt-ar">صهاريج منفصلة؛ يستقبل الحويصلات في وجه Cis، يعدل البروتينات (إضافة سكريات ودهون)، ويشحنها من وجه Trans.</span><span class="txt-en hidden">Flattened cisternae; cis face receives vesicles from RER, modifies/glycosylates proteins, trans face ships them out.</span></p>
+            <p>• <b>الليزوزومات:</b> <span class="txt-ar">حويصلات تحوي إنزيمات هاضمة تعمل في pH حمضي، تهضم الجزيئات المبتلعة والعضيات المسنة (Autophagy).</span><span class="txt-en hidden">Acid hydrolase-filled vesicles digesting endocytosed material and worn-out organelles (Autophagy).</span></p>
+            <p>• <b>البيروكسيزومات:</b> <span class="txt-ar">تكسير الأحماض الدهنية الطويلة؛ إنزيم الكتاليز يفكك بيروكسيد الهيدروجين السام ($H_2O_2$) إلى ماء وأكسجين.</span><span class="txt-en hidden">Beta-oxidation of VLCFA; catalase enzyme neutralizes toxic $H_2O_2$ into $H_2O$ and $O_2$.</span></p>
+          </div>
+        </div>
+
+        <!-- Non-Membranous & Cytoskeleton -->
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+          <span class="text-bio-400 font-bold font-mono">Cytoskeleton &amp; Non-Membranous</span>
+          <h4 class="text-base font-bold text-white">
+            <span class="txt-ar">الهيكل الخلوي والتراكيب اللّاغشائية</span>
+            <span class="txt-en hidden">Cytoskeleton &amp; Non-Membranous</span>
+          </h4>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2 text-slate-300">
+            <p>• <b>Microtubules:</b> 
+              <span class="txt-ar">بروتين التيوبيولين. نمط (9+2) للأهداب والأسواط، ونمط (9x3 ثلاثيات) للسنتروسوم وخيوط المغزل.</span>
+              <span class="txt-en hidden">Tubulin dimers. (9+2) axoneme pattern in cilia/flagella, (9x3 triplets) in centrioles/centrosomes.</span>
+            </p>
+            <p>• <b>Microfilaments:</b> 
+              <span class="txt-ar">خيوط الأكتين؛ مسؤولة عن حركة السيتوبلازم (Cyclosis)، خنق الخلية أثناء الانقسام، وانقباض العضلات.</span>
+              <span class="txt-en hidden">Actin filaments; powers cytoplasmic streaming, cleavage furrow in cytokinesis, and muscle contraction.</span>
+            </p>
+            <p>• <b>Intermediate Filaments:</b> 
+              <span class="txt-ar">خيوط متينة كالكيراتين (الشعر والأظافر) وتدعيم الغلاف النووي (<span class="term-en">Nuclear lamina</span>).</span>
+              <span class="txt-en hidden">Stable fibers (e.g. Keratin) bearing tension and anchoring the nuclear envelope (Nuclear lamina).</span>
+            </p>
+            <p>• <b>البروتيوسومات:</b> 
+              <span class="txt-ar">أسطوانات فرم وتكسير البروتينات التالفة الموسومة باليوبيكويتين.</span>
+              <span class="txt-en hidden">Proteasomes: Cylindrical complexes degrading ubiquitin-tagged misfolded proteins.</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Secretory Pathway Flow -->
+      <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-4 text-xs">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-arrows-turn-to-dots text-bio-400"></i>
+          <span class="txt-ar">مسار تصنيع وإفراز البروتين (The Endomembrane Secretory Pathway)</span>
+          <span class="txt-en hidden">The Secretory Pathway Pipeline</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-center">
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <span class="text-bio-400 font-bold block mb-1">1. Nucleus</span>
+            <p class="text-slate-400 txt-ar">نسخ mRNA وتصنيع وحدات الريبوسوم بالنوية وخروجها للسيتوسول.</p>
+            <p class="text-slate-400 txt-en hidden">mRNA transcription and ribosomal subunit assembly in nucleolus.</p>
+          </div>
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <span class="text-bio-400 font-bold block mb-1">2. Rough ER</span>
+            <p class="text-slate-400 txt-ar">ترجمة البروتين على الريبوسومات وإدخاله لتجويف الـ ER وتغليفه بحويصلة ناقلة.</p>
+            <p class="text-slate-400 txt-en hidden">Translation by bound ribosomes, folding, and packaging into transport vesicle.</p>
+          </div>
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <span class="text-bio-400 font-bold block mb-1">3. Golgi Cis Face</span>
+            <p class="text-slate-400 txt-ar">استقبال الحويصلة واندماجها مع صهاريج جهاز جولجي.</p>
+            <p class="text-slate-400 txt-en hidden">Fusion of transport vesicle with cis cisternae of Golgi apparatus.</p>
+          </div>
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <span class="text-bio-400 font-bold block mb-1">4. Modification</span>
+            <p class="text-slate-400 txt-ar">إضافة جليكوجين ودهون وفرز وتحديد الوجهة النهائية.</p>
+            <p class="text-slate-400 txt-en hidden">Protein glycosylation, phosphorylation, and sorting into target vesicles.</p>
+          </div>
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <span class="text-bio-400 font-bold block mb-1">5. Trans &amp; Exocytosis</span>
+            <p class="text-slate-400 txt-ar">انطلاق حويصلات إفرازية تندمج مع الغشاء البلازمي لتفريغ المحتوى للخارج.</p>
+            <p class="text-slate-400 txt-en hidden">Budding from trans face into secretory vesicle fusing with plasma membrane.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 5. MICROSCOPY & LABORATORY TECHNIQUES                          -->
+    <!-- ============================================================== -->
+    <section id="sec-microscopy" class="content-sec hidden space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-accent-gold text-xs font-bold uppercase tracking-wider font-mono">Microscopy &amp; Lab Protocols</span>
+          <h2 class="text-2xl font-black text-white mt-1">
+            <span class="txt-ar">٥. تقنيات المعمل: الميكروسكوبات وقوة الفصل وحسابات الطرد المركزي</span>
+            <span class="txt-en hidden">5. Microscopy, Resolving Power &amp; Cell Fractionation</span>
+          </h2>
+        </div>
+        <button onclick="copySection('sec-microscopy')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300">
+          <i class="fa-solid fa-copy ml-1"></i> <span class="txt-ar">نسخ</span><span class="txt-en hidden">Copy</span>
+        </button>
+      </div>
+
+      <!-- Grand Comparison Table LM vs SEM vs TEM -->
+      <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-microscope text-accent-gold"></i>
+          <span class="txt-ar">المقارنة المعيارية للميكروسكوبات (LM vs. SEM vs. TEM)</span>
+          <span class="txt-en hidden">Comprehensive Microscopy Matrix</span>
+        </h3>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs border-collapse bg-slate-950 rounded-2xl overflow-hidden border border-slate-800">
+            <thead class="bg-slate-800 text-slate-200">
+              <tr>
+                <th class="p-3 font-bold">Criteria</th>
+                <th class="p-3 text-bio-400 font-bold">المجهر الضوئي (LM)</th>
+                <th class="p-3 text-accent-cyan font-bold">المجهر الإلكتروني الماسح (SEM)</th>
+                <th class="p-3 text-accent-gold font-bold">المجهر الإلكتروني النافذ (TEM)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr>
+                <td class="p-3 font-bold text-white">مصدر الإشعاع والوسط</td>
+                <td class="p-3 text-slate-300">ضوء مرئي بطول موجي طويل (400 - 700 nm) في الهواء العادي</td>
+                <td class="p-3 text-slate-300">حزمة إلكترونات بطول موجي نانوي قصير للغاية في أنبوب مفرغ من الهواء</td>
+                <td class="p-3 text-slate-300">حزمة إلكترونات تخترق شريحة العينة في أنبوب مفرغ من الهواء</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">قوة الفصل (Resolution Limit)</td>
+                <td class="p-3 text-slate-300">منخفضة نسبياً (~ 200 nm / 0.2 µm) محكومة بالطول الموجي للضوء</td>
+                <td class="p-3 text-slate-300">عالية جداً (1 - 10 nm) تكشف تفاصيل التضاريس</td>
+                <td class="p-3 text-bio-400 font-bold font-mono">فائقة الدقة والوضوح (0.2 nm) تميز الجزيئات الكبيرة</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">أقصى تكبير عملي</td>
+                <td class="p-3 font-mono text-bio-400">1000x - 1500x</td>
+                <td class="p-3 font-mono text-accent-cyan">50,000x - 100,000x</td>
+                <td class="p-3 font-mono text-accent-gold">250,000x - 1,000,000x</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">حالة العينة المفحوصة</td>
+                <td class="p-3 text-emerald-300 font-bold">
+                  <span class="txt-ar">يمكن فحص خلايا حية ومتحركة دون صباغة، أو عينات ميتة مصبوغة.</span>
+                  <span class="txt-en hidden">Living moving cells can be viewed unstained; or dead stained cells.</span>
+                </td>
+                <td class="p-3 text-rose-300 font-bold">
+                  <span class="txt-ar">عينة ميتة مجففة ومطلية بطبقة رقيقة من الذهب في فراغ.</span>
+                  <span class="txt-en hidden">Strictly dead, fixed specimens coated with heavy gold in a vacuum.</span>
+                </td>
+                <td class="p-3 text-rose-300 font-bold">
+                  <span class="txt-ar">عينة ميتة مقطعة لشرائح نانو رقيقة جداً ومصبوغة بمعادن ثقيلة كالأوزميوم.</span>
+                  <span class="txt-en hidden">Strictly dead, ultra-thin sectioned slices stained with heavy metals.</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-white">طبيعة الصورة المخرجة</td>
+                <td class="p-3 text-slate-300">صورة مستوية ثنائية الأبعاد (2D) ملونة بالألوان الحقيقية أو الصبغات</td>
+                <td class="p-3 text-accent-cyan font-bold">صورة مجسمة ثلاثية الأبعاد (3D) لتضاريس السطح الخارجي</td>
+                <td class="p-3 text-accent-gold font-bold">صورة مقطعية ثنائية الأبعاد (2D) للأعضاء الدقيقة الداخلية</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
+          <p class="text-accent-gold font-bold">قوانين الميكروسكوب في الامتحان (Formulas):</p>
+          <p>• Total Magnification = Ocular Lens Power (عدسة عينية) × Objective Lens Power (عدسة شيئية)</p>
+          <p>• Resolving Power $\propto \frac{1}{\text{Wavelength}}$ (علاقة عكسية: كلما قصر الطول الموجي زادت قوة الفصل والوضوح)</p>
+        </div>
+      </div>
+
+      <!-- Lab Protocols: Wet Mount & Cell Fractionation -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+        
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-3">
+          <h4 class="font-bold text-bio-400 text-base flex items-center gap-2">
+            <i class="fa-solid fa-droplet"></i>
+            <span class="txt-ar">تقنية التحضير الرطب والصباغة (Wet Mount &amp; Staining)</span>
+            <span class="txt-en hidden">Wet Mount &amp; Staining Protocols</span>
+          </h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <span class="txt-ar">• <b>الشريحة الرطبة (<span class="term-en">Wet Mount</span>):</b> وضع قطرة ماء ومحلول ملحي فوق العينة ثم إنزال غطاء الشريحة (<span class="term-en">Coverslip</span>) بزاوية 45 درجة لتفادي تكون فقاعات الهواء؛ فائدتها تسطيح العينة وترطيبها لتحسين نفاذية الضوء.<br>• <b>الصباغة (<span class="term-en">Staining</span>):</b> استخدام صبغات كاليود أو الميثيلين الأزرق؛ لزيادة التباين (<span class="term-en">Contrast</span>) وتمييز النواة بوضوح، لكن عيبها القاتل أنها <b>تقتل الخلايا الحية فوراً</b>.</span>
+            <span class="txt-en hidden">• <strong>Wet Mount:</strong> Specimen immersed in liquid drop, coverslip lowered at a 45° angle to prevent air bubbles. Flattens sample for optimal light transmission.<br>• <strong>Staining:</strong> Synthetic dyes (Iodine, Methylene blue) bind to specific biomolecules, dramatically improving Contrast to visualize nuclei, but <strong>instantly kills live specimens</strong>.</span>
+          </p>
+        </div>
+
+        <div class="bg-dark-900 border border-slate-800 rounded-3xl p-6 space-y-3">
+          <h4 class="font-bold text-accent-gold text-base flex items-center gap-2">
+            <i class="fa-solid fa-arrows-spin"></i>
+            <span class="txt-ar">الترسيب بالطرد المركزي المتدرج (Differential Centrifugation)</span>
+            <span class="txt-en hidden">Differential Centrifugation Order</span>
+          </h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <span class="txt-ar">فصل عضيات الخلية حسب الحجم والكتلة والكثافة بالدوران في جهاز <span class="term-en">Centrifuge</span> بسرعات متزايدة (من الأثقل للأخف):</span>
+            <span class="txt-en hidden">Separates cell organelles based on size, mass, and density at sequentially increasing gravitational forces:</span>
+          </p>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1 font-mono">
+            <p>1. Low speed (1,000 g): <b class="text-white font-cairo">الأنوية السليمة (Nuclei)</b> وحطام الخلايا.</p>
+            <p>2. Medium speed (20,000 g): <b class="text-bio-400 font-cairo">الميتوكوندريا والكلوروبلاست والبيروكسيزومات</b>.</p>
+            <p>3. High speed (80,000 g): <b class="text-accent-cyan font-cairo">حويصلات الشبكة الإندوبلازمية وجولجي (Microsomes)</b>.</p>
+            <p>4. Ultracentrifuge (150,000 g): <b class="text-accent-rose font-cairo">الريبوسومات المفردة (Ribosomes)</b> والجزيئات الكبيرة.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 6. INTERACTIVE 15-QUESTION MOCK EXAM                           -->
+    <!-- ============================================================== -->
+    <section id="sec-quiz" class="content-sec hidden space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-bio-400 text-xs font-bold uppercase tracking-wider font-mono">High-Yield Exam Simulator</span>
+          <h2 class="text-2xl font-black text-white mt-1">
+            <span class="txt-ar">٦. بنك الأسئلة التفاعلي الشامل (١٥ سؤالاً مع التصحيح الفوري والتفسير)</span>
+            <span class="txt-en hidden">6. Comprehensive 15-Question Mock Exam</span>
+          </h2>
+        </div>
+        <div id="quizScoreBadge" class="hidden px-5 py-2 bg-bio-950 text-bio-300 border border-bio-700/60 rounded-xl font-bold text-xs sm:text-sm font-mono">
+          Score: <span id="quizScoreNumber">0</span> / 15
+        </div>
+      </div>
+
+      <!-- Container for dynamic questions -->
+      <div id="questionsContainer" class="space-y-6"></div>
+
+      <!-- Controls -->
+      <div class="flex items-center justify-between pt-6 border-t border-slate-800">
+        <button onclick="checkAllAnswers()" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-bio-600 to-bio-500 hover:from-bio-500 hover:to-bio-400 text-white font-bold shadow-lg shadow-bio-600/20 transition flex items-center gap-2 text-xs sm:text-sm">
+          <i class="fa-solid fa-check-double"></i>
+          <span class="txt-ar">تصحيح الاختبار وعرض التفسير الكامل</span>
+          <span class="txt-en hidden">Submit &amp; View Detailed Rationales</span>
+        </button>
+        <button onclick="generateQuiz()" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition">
+          <i class="fa-solid fa-rotate-right ml-1"></i>
+          <span class="txt-ar">إعادة الاختبار</span>
+          <span class="txt-en hidden">Reset Quiz</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-20 border-t border-slate-800 bg-dark-950 py-12 text-slate-400 text-xs sm:text-sm no-print">
+    <div class="max-w-4xl mx-auto px-4 space-y-6 font-tajawal text-center">
+      
+      <!-- Student Friendly Support Card -->
+      <div class="bg-gradient-to-br from-slate-900/90 to-dark-900 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden text-right">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-bio-500/10 border border-bio-500/30 flex items-center justify-center shrink-0 text-bio-400 text-xl">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="space-y-3 flex-1">
+            <p class="text-base sm:text-lg font-bold text-slate-100 leading-relaxed">
+              الموقع دا ليكوا لاني حاسس اننا كلنا تايهين وحبيت اساعد لو بجزء صغير واتمنى دعوه حلوه منكوا
+            </p>
+            <p class="text-xs text-slate-400 font-inter dir-ltr text-left">
+              "This platform is dedicated to all of you because I know how overwhelming this journey can be. I wanted to help even with a small contribution. Please keep me in your prayers!"
+            </p>
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 font-bold text-xs sm:text-sm">
+              <i class="fa-solid fa-circle-exclamation text-amber-400"></i>
+              <span>ملحوظه : لازم تكون مراجع من مصدر خارجي موثوق الاول</span>
+              <span class="text-xs font-normal opacity-80">(Note: Always double-check and verify from a reliable external source first)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attribution Badge (Strictly LTR, No AI mentions) -->
+      <div class="flex items-center justify-center pt-2">
+        <span dir="ltr" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 font-mono">
+          <i class="fa-solid fa-dna text-bio-500"></i>
+          Information gathered by <strong class="text-white font-bold">Abdelrahman Abdallah</strong>
+        </span>
+      </div>
+
+      <p class="text-slate-500 text-xs">
+        STEM Grade 10 Semester 1 • Biology Comprehensive Revision Hub (LO1 &amp; LO2)
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script>
+    // Current Language State: 'ar' or 'en'
+    let currentLang = 'ar';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      applyLanguage(currentLang);
+    }
+
+    function applyLanguage(lang) {
+      const html = document.documentElement;
+      const langBtnText = document.getElementById('langBtnText');
+      const searchInput = document.getElementById('liveSearch');
+
+      if (lang === 'en') {
+        html.setAttribute('lang', 'en');
+        html.setAttribute('dir', 'ltr');
+        langBtnText.textContent = 'العربية';
+        searchInput.placeholder = 'Search concepts, organelles, vitals...';
+        document.querySelectorAll('.txt-ar').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.txt-en').forEach(el => el.classList.remove('hidden'));
+      } else {
+        html.setAttribute('lang', 'ar');
+        html.setAttribute('dir', 'rtl');
+        langBtnText.textContent = 'English';
+        searchInput.placeholder = 'بحث سريع في المفاهيم...';
+        document.querySelectorAll('.txt-ar').forEach(el => el.classList.remove('hidden'));
+        document.querySelectorAll('.txt-en').forEach(el => el.classList.add('hidden'));
+      }
+
+      // Re-render quiz in chosen language
+      generateQuiz();
+    }
+
+    // Tab Navigation
+    function navigateTab(tabName) {
+      document.querySelectorAll('.content-sec').forEach(s => s.classList.add('hidden'));
+      const active = document.getElementById('sec-' + tabName);
+      if (active) {
+        active.classList.remove('hidden');
+        window.scrollTo({ top: active.offsetTop - 85, behavior: 'smooth' });
+      }
+
+      document.querySelectorAll('.tab-link').forEach(btn => {
+        if (btn.dataset.tab === tabName) {
+          btn.className = "tab-link px-3 py-2 rounded-xl text-bio-400 bg-bio-900/40 border border-bio-600/40 transition flex items-center gap-1.5";
+        } else {
+          btn.className = "tab-link px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5";
+        }
+      });
+    }
+
+    // Scroll Progress
+    window.addEventListener('scroll', () => {
+      const top = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('readProgress').style.transform = `scaleX(${top / height})`;
+    });
+
+    // Toast
+    function triggerToast(text) {
+      const t = document.getElementById('toastBox');
+      document.getElementById('toastText').textContent = text;
+      t.classList.remove('translate-y-24', 'opacity-0');
+      t.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        t.classList.add('translate-y-24', 'opacity-0');
+        t.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    // Copy Section
+    function copySection(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const area = document.createElement('textarea');
+      area.value = el.innerText;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand('copy');
+      document.body.removeChild(area);
+      triggerToast(currentLang === 'ar' ? 'تم نسخ محتوى التبويب بنجاح!' : 'Section copied to clipboard!');
+    }
+
+    // Search
+    function searchContent() {
+      const q = document.getElementById('liveSearch').value.trim().toLowerCase();
+      if (!q) return;
+      document.querySelectorAll('.content-sec').forEach(s => s.classList.remove('hidden'));
+      const targets = document.querySelectorAll('h3, h4, p, td, b, li');
+      for (let t of targets) {
+        if (t.textContent.toLowerCase().includes(q)) {
+          t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          break;
+        }
+      }
+    }
+
+    // 15 Comprehensive Bilingual Quiz Questions
+    const examQuestions = [
+      {
+        q_ar: "١. أي من الرواد الآتي ذكرهم شاهد كائنات حية دقيقة متحركة لأول مرة واصفاً إياها بـ Animalcules باستخدام مجهر أحادي العدسة؟",
+        q_en: "1. Which pioneer first observed moving microscopic living organisms (Animalcules) using a handcrafted single-lens microscope?",
+        options_ar: ["روبرت هوك (Robert Hooke)", "أنطوني فان ليفينهوك (Antonie van Leeuwenhoek)", "ماتياس شلايدن (Matthias Schleiden)", "رودولف فيرشو (Rudolf Virchow)"],
+        options_en: ["Robert Hooke", "Antonie van Leeuwenhoek", "Matthias Schleiden", "Rudolf Virchow"],
+        correct: 1,
+        exp_ar: "ليفينهوك صنع مجهراً بسيطاً بعدسة واحدة وفحص مياه البرك ورواسب الأسنان وشاهد كائنات متحركة سماها Animalcules، بينما هوك فحص فليناً ميتاً.",
+        exp_en: "Leeuwenhoek utilized a powerful single-lens magnifier on pond water and dental plaque to observe live bacteria and protists (Animalcules)."
+      },
+      {
+        q_ar: "٢. ما التكيف البيولوجي الذي يسمح للخلية النباتية بالنمو إلى أحجام تفوق الخلية الحيوانية دون الوقوع في أزمة نسبة (SA / V)؟",
+        options_ar: [
+          "وجود الفجوة العصارية المركزية الكبيرة التي تزيح السيتوبلازم النشط لشريط طرفي رقيق",
+          "سماكة الجدار الخلوي السليلوزي الذي يمنع دخول الماء الزائد",
+          "مضاعفة عدد الميتوكوندريا لتوليد طاقة نقل نشط أسرع",
+          "تعدد الأنوية داخل السيتوبلازم النباتي"
+        ],
+        options_en: [
+          "The large central vacuole pushing active cytoplasm into a thin peripheral rim near the membrane",
+          "A thick cellulose cell wall preventing excess water absorption",
+          "Multiplying mitochondria to increase active transport rates",
+          "Multinucleated organization throughout the cytoplasm"
+        ],
+        correct: 0,
+        exp_ar: "الفجوة المركزية تمتلئ بمحاليل غير نشطة، فتحصر السيتوبلازم في شريط رفيع جداً ملامس للغشاء، مما يحافظ على مسافات انتشار قصيرة.",
+        exp_en: "The central vacuole occupies most cell volume with inert sap, reducing effective metabolic volume and maintaining short diffusion paths."
+      },
+      {
+        q_ar: "٣. مريض يعاني من حمى ورعشة؛ سجلت قراءاته الحيوية: نبض 115 bpm، ضغط دم 80/50 mmHg، وحرارة 39.2°C. التصنيف الطبي الدقيق هو:",
+        options_ar: [
+          "Bradycardia, Hypertension, Hypothermia",
+          "Tachycardia, Hypotension, Febrile",
+          "Normal HR, Hypotension, Hypothermia",
+          "Tachycardia, Normal BP, Febrile"
+        ],
+        options_en: [
+          "Bradycardia, Hypertension, Hypothermia",
+          "Tachycardia, Hypotension, Febrile",
+          "Normal HR, Hypotension, Hypothermia",
+          "Tachycardia, Normal BP, Febrile"
+        ],
+        correct: 1,
+        exp_ar: "النبض فوق 100 يعد Tachycardia، والضغط تحت 90/60 يعد Hypotension، والحرارة فوق 38°C تعد حالة حمى Febrile.",
+        exp_en: "HR > 100 bpm is Tachycardia, BP < 90/60 mmHg is Hypotension, and temperature > 38°C is Febrile."
+      },
+      {
+        q_ar: "٤. الطور الذي تحقنه أنثى بعوضة الأنوفيلس في دم الإنسان، والطور الحلقي التشخيصي الموجود داخل خلايا الدم الحمراء هما على الترتيب:",
+        options_ar: [
+          "Merozoite و Ookinete",
+          "Sporozoite و Immature Trophozoite (Ring stage)",
+          "Hypnozoite و Gametocyte",
+          "Oocyst و Schizont"
+        ],
+        options_en: [
+          "Merozoite and Ookinete",
+          "Sporozoite and Immature Trophozoite (Ring stage)",
+          "Hypnozoite and Gametocyte",
+          "Oocyst and Schizont"
+        ],
+        correct: 1,
+        exp_ar: "البعوضة تحقن Sporozoites أحادية (n)، والطور الحلقي (Ring stage) هو علامة الملاريا التشخيصية بالدم.",
+        exp_en: "The mosquito injects Sporozoites; the immature ring-stage trophozoite within erythrocytes is the hallmark diagnostic stage."
+      },
+      {
+        q_ar: "٥. ما السبب المباشر لحدوث انتكاسات ملاريا متأخرة (Relapses) بعد أشهر من الشفاء الظاهري في إصابات P. vivax و P. ovale؟",
+        options_ar: [
+          "تكون أطوار هايبنوزويت كامنة في خلايا الكبد (Hypnozoites in Hepatocytes)",
+          "مقاومة الميروزويتات للأجسام المضادة في الطحال",
+          "بقاء أكياس البيض Oocysts في جدار معدة البعوضة",
+          "تحور مستمر في بروتينات جدار كرات الدم الحمراء"
+        ],
+        options_en: [
+          "Dormant Hypnozoites persisting inside hepatocytes",
+          "Antibody-resistant merozoites sequestered in spleen",
+          "Oocysts persisting on mosquito stomach wall",
+          "Antigenic variation of erythrocyte surface markers"
+        ],
+        correct: 0,
+        exp_ar: "الأطوار الكامنة Hypnozoites في الكبد تنشط فجأة بعد أشهر وتطلق ميروزويتات جديدة في الدم مسببة الانتكاسة.",
+        exp_en: "Dormant hepatic Hypnozoites can reactivate months or years post-infection without a new mosquito bite."
+      },
+      {
+        q_ar: "٦. أي مما يلي يفسر ميزة تفوق حاملي الصفة المنجلية الهجين (HbAS) في المناطق الموبوءة بالملاريا؟",
+        options_ar: [
+          "أن كرات دمهم المنجلية تقاوم اختراق الميروزويتات وتتحلل بسرعة قاطعة دورة حياة الطفيلي",
+          "أن طفيلي الملاريا يتغذى فقط على الدهون ولا يستطيع استهلاك الهيموجلوبين",
+          "أن أجهزتهم المناعية تنتج كميات مضاعفة من إنزيم الكتاليز",
+          "أن بعوضة الأنوفيلس تمتنع عن لسع حاملي هيموجلوبين HbS"
+        ],
+        options_en: [
+          "Sickled erythrocytes hemolyze rapidly under parasite load, aborting the Plasmodium life cycle",
+          "Plasmodium exclusively metabolizes lipids and cannot digest hemoglobin S",
+          "Their immune system overexpresses cellular catalase",
+          "Mosquitoes avoid feeding on individuals with abnormal hemoglobin"
+        ],
+        correct: 0,
+        exp_ar: "حاملو صفة الأنيميا المنجلية الهجين HbAS تنخفض لديهم شدة الملاريا لأن الخلايا المصابة تتمنجل سريعاً ويتخلص منها الطحال قبل تكاثر الطفيلي.",
+        exp_en: "Heterozygotes (HbAS) suffer less severe malaria because infected RBCs sickle and are filtered by the spleen before parasite maturation."
+      },
+      {
+        q_ar: "٧. مرض تاي ساكس (Tay-Sachs) هو اعتلال تخزين ليزوزومي قاتل ينشأ عن عجز إنزيمي يؤدي لتراكم:",
+        options_ar: [
+          "جلايكوجين معقد في خلايا الكبد",
+          "دهون GM2 Gangliosides في الخلايا العصبية للمخ",
+          "أحماض دهنية طويلة جداً VLCFA في البيروكسيزومات",
+          "صبغة البيليروبين في الأوعية الدموية"
+        ],
+        options_en: [
+          "Complex glycogen in liver parenchyma",
+          "GM2 Gangliosides in central nervous system neurons",
+          "VLCFA in non-functional peroxisomes",
+          "Bilirubin complexes within brain microvessels"
+        ],
+        correct: 1,
+        exp_ar: "غياب إنزيم Beta-hexosaminidase A يمنع تكسير دهون GM2 gangliosides فتتراكم سامة داخل خلايا الجهاز العصبي.",
+        exp_en: "Beta-hexosaminidase A enzyme deficiency halts hydrolysis of GM2 gangliosides, causing toxic neuronal lipid deposition."
+      },
+      {
+        q_ar: "٨. أي العضيات التالية محاطة بغشاء مزدوج وتحتوي على DNA حلقي وريبوسومات 70S دعماً لنظرية التكافل الداخلي؟",
+        options_ar: [
+          "النواة والميتوكوندريا والبلاستيدات الخضراء",
+          "الشبكة الإندوبلازمية وجهاز جولجي والليزوزومات",
+          "البيروكسيزومات والبروتيوسومات والسنتروسوم",
+          "الفجوة العصارية والأنيبيبات الدقيقة"
+        ],
+        options_en: [
+          "Nucleus, Mitochondria, and Chloroplasts",
+          "Endoplasmic Reticulum, Golgi Apparatus, and Lysosomes",
+          "Peroxisomes, Proteasomes, and Centrosomes",
+          "Central Vacuole and Microtubules"
+        ],
+        correct: 0,
+        exp_ar: "الميتوكوندريا والكلوروبلاست والنواة تملك أغشية مزدوجة، والميتوكوندريا والكلوروبلاست تحويان DNA حلقياً وريبوسومات 70S كبدائيات النوى.",
+        exp_en: "Mitochondria, Chloroplasts, and Nucleus possess double envelopes; mitochondria and chloroplasts retain 70S ribosomes and circular DNA."
+      },
+      {
+        q_ar: "٩. ما الترتيب التنازلي الصحيح لترسيب عضيات الخلية في جهاز الطرد المركزي المتدرج من السرعة الأقل إلى الأعلى؟",
+        options_ar: [
+          "الريبوسومات ← الميتوكوندريا ← حويصلات ER ← الأنوية",
+          "الأنوية ← الميتوكوندريا ← حويصلات ER وجولجي ← الريبوسومات",
+          "الأنوية ← الريبوسومات ← الميتوكوندريا ← البيروكسيزومات",
+          "الميتوكوندريا ← الأنوية ← الريبوسومات ← حويصلات جولجي"
+        ],
+        options_en: [
+          "Ribosomes -> Mitochondria -> Microsomes -> Nuclei",
+          "Nuclei -> Mitochondria -> Microsomes (ER/Golgi) -> Ribosomes",
+          "Nuclei -> Ribosomes -> Mitochondria -> Peroxisomes",
+          "Mitochondria -> Nuclei -> Ribosomes -> Microsomes"
+        ],
+        correct: 1,
+        exp_ar: "تترسب الأنوية الأثقل أولاً (1,000 g)، تليها الميتوكوندريا والكلوروبلاست (20,000 g)، ثم المايكروسومات (80,000 g)، وأخيراً الريبوسومات (150,000 g).",
+        exp_en: "Heavy dense nuclei pellet first at low speed, followed by mitochondria/chloroplasts, then microsomal vesicles, and finally individual ribosomes at ultracentrifugation."
+      },
+      {
+        q_ar: "١٠. المجهر الذي يوفر صورة ثلاثية الأبعاد (3D) لتضاريس سطح الخلية بعد طلائها بطبقة من الذهب في فراغ هو:",
+        options_ar: [
+          "المجهر الإلكتروني الماسح (Scanning Electron Microscope - SEM)",
+          "المجهر الإلكتروني النافذ (Transmission Electron Microscope - TEM)",
+          "المجهر الضوئي المركب (Compound Light Microscope - LM)",
+          "المجهر التشريحي البسيط (Stereomicroscope)"
+        ],
+        options_en: [
+          "Scanning Electron Microscope (SEM)",
+          "Transmission Electron Microscope (TEM)",
+          "Compound Light Microscope (LM)",
+          "Dissecting Stereomicroscope"
+        ],
+        correct: 0,
+        exp_ar: "مجهر الـ SEM يمسح سطح العينة المطلية بذهب بحزمة إلكترونات ليعطي صورة ثلاثية الأبعاد 3D.",
+        exp_en: "The SEM scans an electron beam over gold-sputtered specimen surfaces to produce high-resolution 3D topography."
+      },
+      {
+        q_ar: "١١. ما وظيفة الشبكة الإندوبلازمية الملساء (Smooth ER) الوفيرة في خلايا الكبد والخلايا العضلية؟",
+        options_ar: [
+          "تصنيع بروتينات الإفراز وإنزيمات الليزوزومات الهاضمة",
+          "تخليق الدهون والاستيرويدات، إزالة سمية الأدوية، وتخزين أيونات الكالسيوم",
+          "ترجمة جزيئات mRNA بواسطة ريبوسومات 80S المتصلة بها",
+          "توليد جزيئات ATP عبر سلسلة نقل الإلكترون"
+        ],
+        options_en: [
+          "Synthesizing secretory proteins and hydrolytic enzymes",
+          "Lipid/steroid synthesis, drug detoxification, and calcium ion storage",
+          "Translating mRNA transcripts using attached 80S ribosomes",
+          "ATP generation across an electrochemical proton gradient"
+        ],
+        correct: 1,
+        exp_ar: "الـ Smooth ER ملساء لغياب الريبوسومات، وتختص بتصنيع الدهون والستيرويدات، ديتوكس الكبد، وتخزين الكالسيوم في العضلات.",
+        exp_en: "Smooth ER lacks ribosomes; specializes in lipid/steroid biosynthesis, hepatic detoxification, and sarcoplasmic $Ca^{2+}$ regulation."
+      },
+      {
+        q_ar: "١٢. ما العلاقة الرياضية الفيزيائية بين الطول الموجي للشعاع المستخدم وقوة الفصل (Resolving Power) في الميكروسكوبات؟",
+        options_ar: [
+          "علاقة طردية؛ كلما زاد الطول الموجي زادت قوة الفصل والدقة",
+          "علاقة عكسية؛ كلما قصر الطول الموجي صغرت مسافة الفصل وزادت الدقة والوضوح",
+          "لا توجد أي علاقة بين الطول الموجي وقوة الفصل",
+          "قوة الفصل تعتمد فقط على قوة العدسة العينية"
+        ],
+        options_en: [
+          "Directly proportional; longer wavelengths yield higher resolution",
+          "Inversely proportional; shorter wavelengths yield smaller limit of resolution and sharper detail",
+          "Independent; resolution is purely determined by contrast stains",
+          "Resolution depends strictly on ocular lens magnification"
+        ],
+        correct: 1,
+        exp_ar: "قوة الفصل تتناسب عكسياً مع الطول الموجي؛ لذلك حزمة الإلكترونات ذات الطول الموجي القصير جداً تفصل تفاصيل أدق بمئات المرات من الضوء.",
+        exp_en: "Resolution limit is inversely proportional to wavelength. Shorter electron wavelengths enable resolving sub-nanometer ultrastructures."
+      },
+      {
+        q_ar: "١٣. ما الفارق الجوهري بين استئصال المرض (Eradication) وإقصائه (Elimination) في علم الوبائيات؟",
+        options_ar: [
+          "الاستئصال عالمي ودائم وتتوقف معه جهود المكافحة، بينما الإقصاء محلي جغرافي ويتطلب استمرار الوقاية",
+          "الاستئصال محلي وإقليمي، بينما الإقصاء عالمي شامل",
+          "الاستئصال ينطبق فقط على الأمراض غير المعدية كالسرطان",
+          "الإقصاء لا يتطلب وجود لقاح، بينما الاستئصال يتطلب علاجات كيميائية فقط"
+        ],
+        options_en: [
+          "Eradication is permanent and global allowing interventions to cease; Elimination is regional requiring continuous vigilance",
+          "Eradication is local, whereas Elimination is global and permanent",
+          "Eradication applies exclusively to non-communicable diseases",
+          "Elimination requires zero surveillance, while Eradication requires continuous vaccination"
+        ],
+        correct: 0,
+        exp_ar: "الاستئصال Eradication عالمي ونهائي كالجدري Smallpox، بينما الإقصاء Elimination محلي كرقعة جغرافية كالسل أو الملاريا بمصر.",
+        exp_en: "Eradication reaches zero cases globally (e.g. Smallpox); Elimination achieves zero incidence in a targeted geographical area."
+      },
+      {
+        q_ar: "١٤. ما التركيب البروتيني المسؤول عن تكوين خيوط المغزل وانقسام الخلية، ويكون نمط (9+2) في أهداب وأسواط الخلايا؟",
+        options_ar: [
+          "الأنيبيبات الدقيقة (Microtubules) المكونة من التيوبيولين",
+          "الخيوط الدقيقة (Microfilaments) المكونة من الأكتين",
+          "الخيوط الوسيطة (Intermediate filaments) المكونة من الكيراتين",
+          "ألياف الكولاجين المفرزة في النسيج الضام"
+        ],
+        options_en: [
+          "Microtubules constructed from tubulin dimers",
+          "Microfilaments constructed from actin monomers",
+          "Intermediate filaments constructed from keratin subunits",
+          "Extracellular collagen fibrils"
+        ],
+        correct: 0,
+        exp_ar: "الأنيبيبات الدقيقة تتكون من بروتين التيوبيولين، وهي أساس السنتروسوم والمغزل ونمط 9+2 في الأهداب والأسواط.",
+        exp_en: "Microtubules are composed of tubulin dimers, forming mitotic spindles, centrioles (9x3), and the 9+2 axoneme in cilia/flagella."
+      },
+      {
+        q_ar: "١٥. سم قاتل مثل السيانيد (Cyanide) يسبب الوفاة الفورية للخلية الحية عن طريق تثبيط:",
+        options_ar: [
+          "إنزيمات سلسلة نقل الإلكترون والتنفس الخلوي في الميتوكوندريا",
+          "تخليق البروتينات على ريبوسومات 80S الحرة",
+          "عمل إنزيم الكتاليز في تفكيك بيروكسيد الهيدروجين",
+          "امتصاص الماء في الفجوة العصارية المركزية"
+        ],
+        options_en: [
+          "Cytochrome complexes of the Electron Transport Chain in mitochondria",
+          "Peptide bond synthesis on cytosolic 80S ribosomes",
+          "Catalase activity within metabolic peroxisomes",
+          "Osmotic water uptake across the tonoplast membrane"
+        ],
+        correct: 0,
+        exp_ar: "السيانيد يرتبط بمركبات السيتوكروم في الغشاء الداخلي للميتوكوندريا مانعاً إنتاج ATP مؤدياً للموت الخلوي السريع.",
+        exp_en: "Cyanide binds cytochrome c oxidase in the inner mitochondrial membrane, instantly halting oxidative phosphorylation and ATP synthesis."
+      }
+    ];
+
+    function generateQuiz() {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+
+      examQuestions.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = "bg-dark-900 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-3";
+        card.id = `qCard-${idx}`;
+
+        const questionText = currentLang === 'ar' ? item.q_ar : item.q_en;
+        const optionsList = currentLang === 'ar' ? item.options_ar : item.options_en;
+
+        let optionsMarkup = '';
+        optionsList.forEach((opt, oIdx) => {
+          optionsMarkup += `
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer text-xs sm:text-sm text-slate-200 transition">
+              <input type="radio" name="examQ-${idx}" value="${oIdx}" class="text-bio-500 focus:ring-0">
+              <span>${opt}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <h4 class="font-bold text-white text-xs sm:text-sm leading-relaxed">${questionText}</h4>
+          <div class="space-y-2 pt-1">${optionsMarkup}</div>
+          <div id="fbBox-${idx}" class="hidden p-3.5 rounded-xl text-xs leading-relaxed mt-2 font-mono"></div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      document.getElementById('quizScoreBadge').classList.add('hidden');
+    }
+
+    function checkAllAnswers() {
+      let score = 0;
+
+      examQuestions.forEach((item, idx) => {
+        const selected = document.querySelector(`input[name="examQ-${idx}"]:checked`);
+        const fb = document.getElementById(`fbBox-${idx}`);
+        const card = document.getElementById(`qCard-${idx}`);
+        fb.classList.remove('hidden');
+
+        const explanation = currentLang === 'ar' ? item.exp_ar : item.exp_en;
+        const correctText = currentLang === 'ar' ? item.options_ar[item.correct] : item.options_en[item.correct];
+
+        if (selected) {
+          const val = parseInt(selected.value);
+          if (val === item.correct) {
+            score++;
+            card.classList.add('border-bio-500/50');
+            card.classList.remove('border-rose-500/50', 'border-amber-500/50');
+            fb.className = "p-3.5 rounded-xl text-xs bg-bio-950/40 border border-bio-500/30 text-bio-300";
+            fb.innerHTML = `✓ ${currentLang === 'ar' ? 'إجابة صحيحة ممتازة!' : 'Correct answer!'} • ${explanation}`;
+          } else {
+            card.classList.add('border-rose-500/50');
+            card.classList.remove('border-bio-500/50', 'border-amber-500/50');
+            fb.className = "p-3.5 rounded-xl text-xs bg-rose-950/40 border border-rose-500/30 text-rose-300";
+            fb.innerHTML = `✗ ${currentLang === 'ar' ? 'إجابة خاطئة! الإجابة الصحيحة:' : 'Incorrect! Correct answer:'} (${correctText}) • ${explanation}`;
+          }
+        } else {
+          card.classList.add('border-amber-500/50');
+          fb.className = "p-3.5 rounded-xl text-xs bg-amber-950/40 border border-amber-500/30 text-amber-300";
+          fb.innerHTML = `! ${currentLang === 'ar' ? 'لم تقم بالاختيار! الصحيح هو:' : 'Not answered! Correct was:'} (${correctText}) • ${explanation}`;
+        }
+      });
+
+      const badge = document.getElementById('quizScoreBadge');
+      document.getElementById('quizScoreNumber').textContent = score;
+      badge.classList.remove('hidden');
+      badge.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      triggerToast(`${currentLang === 'ar' ? 'درجتك' : 'Your score'}: ${score} / 15`);
+    }
+
+    // Initialize application on load
+    window.onload = function() {
+      generateQuiz();
+    };
+  </script>
+</body>
+</html>
